@@ -3,6 +3,7 @@ package com.undsf.pcr.oll.messages;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.houbb.opencc4j.util.ZhConverterUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -213,11 +214,12 @@ public class Equipment {
         try {
             int id = Integer.parseInt(equipmentId);
             String name = equipmentName;
-            int type = Integer.parseInt(itemType);
 
-            com.undsf.pcr.oll.entities.Equipment equip = new com.undsf.pcr.oll.entities.Equipment(id, name, type);
+            com.undsf.pcr.oll.entities.Equipment equip = new com.undsf.pcr.oll.entities.Equipment(id, name);
 
-            equip.description = description;
+            equip.descriptionZhTw = description;
+            equip.description = ZhConverterUtil.toSimple(description);
+            
             equip.craft = craftFlg.equals("1");
             equip.enhancePoint = (int) Float.parseFloat(equipmentEnhancePoint);
             equip.salePrice = (int) Float.parseFloat(salePrice);
